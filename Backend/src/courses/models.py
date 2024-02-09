@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils import timezone
 
 class Courses(models.Model):
     user=models.ForeignKey(User,related_name='course_user',on_delete=models.CASCADE)
@@ -17,7 +17,7 @@ class Review(models.Model):
     user = models.ForeignKey(User,related_name='reviews_course',on_delete=models.SET_NULL,null=True)
     course = models.ForeignKey(Courses,related_name='reviews_course',on_delete=models.CASCADE)
     review = models.TextField(max_length=500)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
     
     
     def __str__(self) :
