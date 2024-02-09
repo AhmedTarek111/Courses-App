@@ -14,8 +14,8 @@ class Courses(models.Model):
         return self.name
     
 class Review(models.Model):
-    user = models.ForeignKey(User,related_name='reviews_course',on_delete=models.SET_NULL,null=True)
-    course = models.ForeignKey(Courses,related_name='reviews_course',on_delete=models.CASCADE)
+    user = models.ForeignKey(User,related_name='review_user',on_delete=models.SET_NULL,null=True)
+    course = models.ForeignKey(Courses,related_name='review_course',on_delete=models.CASCADE)
     review = models.TextField(max_length=500)
     created_at = models.DateTimeField(default=timezone.now)
     

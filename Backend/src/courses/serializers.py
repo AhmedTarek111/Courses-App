@@ -1,10 +1,15 @@
 from rest_framework import serializers
 from .models import Categories,Courses,Review
 
-class CourseSerializer(serializers.ModelSerializer):
+class CourseListSerializer(serializers.ModelSerializer):
     class Meta():
         model =Courses
         fields = ['name','subtitle','description','price','category',]
+
+class CourseDetailSerializer(serializers.ModelSerializer):
+    class Meta():
+        model =Courses
+        fields = ['name','category']
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta():
