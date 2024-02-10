@@ -19,14 +19,12 @@ class Review(models.Model):
     review = models.TextField(max_length=500)
     created_at = models.DateTimeField(default=timezone.now)
     
-    
     def __str__(self) :
         return self.review
 
 
 class Categories(models.Model):
     name=models.CharField(max_length=50)
-    
     
     def __str__(self) :
         return self.name

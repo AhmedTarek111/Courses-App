@@ -12,10 +12,15 @@ class ListCreateCoursesApi(ListCreateAPIView):
     filter_backends = [filters.SearchFilter,DjangoFilterBackend,filters.OrderingFilter]
     search_fields = [ 'name','subtitle','description']
     
+
 class RetrieveUpdateDestroyCourse(RetrieveUpdateDestroyAPIView):
     queryset = Courses.objects.all()
     model = Courses
     serializer_class = CourseDetailSerializer
-    
+
+class ListCreateCategories(ListCreateAPIView):
+    queryset=Categories.objects.all()
+    model = Categories
+    serializer_class = CategoriesSerializer
     
     
