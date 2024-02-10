@@ -36,4 +36,4 @@ def seed_reviews(n:int):
 
         )
 
-seed_reviews(5)
+seed_courses(100)

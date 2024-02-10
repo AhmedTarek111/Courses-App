@@ -1,6 +1,7 @@
 from django.urls import path
-from .api import ListCoursesApi
+from .api import ListCreateCoursesApi
 
 urlpatterns = [
-    path('',ListCoursesApi.as_view())
+    path('',ListCreateCoursesApi.as_view()),
+    
 ]
