@@ -18,7 +18,7 @@ class RetrieveUpdateDestroyCourse(RetrieveUpdateDestroyAPIView):
     model = Courses
     serializer_class = CourseDetailSerializer
 
-class ListCreateCategories(ListCreateAPIView):
+class ListCreateCategoriesApi(ListCreateAPIView):
     queryset=Categories.objects.all()
     model = Categories
     serializer_class = CategoriesSerializer
