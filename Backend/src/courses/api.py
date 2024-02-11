@@ -3,7 +3,8 @@ from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIVi
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Courses,Categories,Review
 from rest_framework import filters
-
+from .myfilter import CoursesFilter
+from .mypagination import CustomPagination
 
 class ListCreateCoursesApi(ListCreateAPIView):
     model = Courses
@@ -11,16 +12,16 @@ class ListCreateCoursesApi(ListCreateAPIView):
     serializer_class = CourseListSerializer
     filter_backends = [filters.SearchFilter,DjangoFilterBackend,filters.OrderingFilter]
     search_fields = [ 'name','subtitle','description']
+    ordering_fields = ['name', 'price']
+    filterset_class = CoursesFilter
+    pagination_class= CustomPagination
     
-
 class RetrieveUpdateDestroyCourse(RetrieveUpdateDestroyAPIView):
-    queryset = Courses.objects.all()
     model = Courses
+    queryset = Courses.objects.all()
     serializer_class = CourseDetailSerializer
 
 class ListCreateCategoriesApi(ListCreateAPIView):
-    queryset=Categories.objects.all()
     model = Categories
+    queryset=Categories.objects.all()
     serializer_class = CategoriesSerializer
-    
-    
