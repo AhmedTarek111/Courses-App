@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./Backend/src
+    command: python manage.py runserver
+
+    ports:
+      - "8000:8000"
+    container_name: backend_container
+    
+  frontend:
+    build: ./Frontend/social-media-app/
+    command: npm run dev
+    ports:
+      - "8080:8080"
+    container_name: frontend_container
+
