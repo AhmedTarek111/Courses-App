@@ -1,10 +1,22 @@
 <template>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <p class="d-flex">
-        <button class="btn btn-outline-dark p-3 px-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-            <i class="fa-solid fa-filter"></i> Filter
+    <div class="d-flex">
+        <button class="btn btn-outline-dark p-3 px-4 me-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+          <i class="fa-solid fa-filter"></i> Filter
         </button>
-      </p>
+        <button class="btn btn-outline-dark p-3 px-4 me-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          sort by 
+        </button>
+      
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
+      </div>
+      
+    
+      
       <div style="min-height: 120px;">
         <div class="collapse collapse-horizontal" id="collapseWidthExample">
           <div class="card card-body" style="width: 300px;">
