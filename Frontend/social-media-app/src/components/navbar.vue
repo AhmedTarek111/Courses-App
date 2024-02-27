@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid ms-5">
+        <div class="container-fluid ms-5 " >
           <a class="navbar-brand" href="#">
             <img src="../assets/img/udemy.svg" alt="Bootstrap" width="91" height="34">
           </a>
@@ -14,16 +14,16 @@
                 <a class="nav-link navLink" href="#" >Categories</a>
               </li>
             </ul>
-            <div class="container-fluid">
+            <div class="container-fluid d-block">
               <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width: 60%;">
               </form>
             </div>
-          
-            
-            
           </div>
         </div>
+        
+        
+ 
       </nav>
         
 

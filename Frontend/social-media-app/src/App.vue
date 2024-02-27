@@ -1,34 +1,26 @@
-
 <template>
-  <navbar/>
-  <div class="container">
-    <div class="row">
-      <!-- filter -->
-      <div class="col-lg-4">
-
-      </div>
-      <!-- courses -->
-      <div class="col-lg-8">
-
-      </div>
-      <!--  -->
-    </div>
+  <div id="app">
+    <navbar/>
   </div>
-  <RouterView />
+  
+  <div>
+    <router-view />
+  </div>
 </template>
 
-<style>
-
-
-</style>
-<script >
-import { RouterLink, RouterView } from 'vue-router'
+<script>
+import CoursesList from './views/CoursesList.vue';
 import navbar from './components/navbar.vue';
+
 export default {
-  name:'app',
-  components:{
+  name: 'app',
+  components: {
     navbar,
+    CoursesList,
   }
 }
-
 </script>
+
+<style>
+/* Add any necessary styling */
+</style>
