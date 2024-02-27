@@ -9,14 +9,12 @@
 </template>
 
 <script>
-import CoursesList from './views/CoursesList.vue';
 import navbar from './components/navbar.vue';
 
 export default {
   name: 'app',
   components: {
     navbar,
-    CoursesList,
   }
 }
 </script>

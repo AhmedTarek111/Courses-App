@@ -1,11 +1,11 @@
 <template>
     <div class="container mt-5">
       <div class="row">
-        <div class="col-4">
+        <div class="col-3">
           <CoursesFilter />
         </div>
-        <div class="col-8">
-          <!-- Add content for the course list -->
+        <div class="col-9">
+          <ListCourses/>
         </div>
       </div>
     </div>
@@ -13,11 +13,12 @@
   
   <script>
   import CoursesFilter from '../components/Filter.vue';
-  
+  import ListCourses from '@/components/ListCourses.vue';
   export default {
-    name: 'course-list',
+    name: 'courses',
     components: {
       CoursesFilter, 
+      ListCourses
     },
   }
   </script>
