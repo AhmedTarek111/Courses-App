@@ -1,35 +1,61 @@
 <template>
-    <div class="row border-bottom border-top">
-        <div class="col-4">
-            <a href="#"><img src="../assets/img/elearning-banner-online-education-home-260nw-1694176021.webp" alt="" class="img-fluid"></a>
-        </div>
-        <div class="col-6 my-auto">
-            <h4>this is the title </h4>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis similique facere illo cupiditate consequuntur enim ea </p>
-            <span class="d-block mb-1">name of the mentor </span>
-            
-            <span class="rating">
-                3.0
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                (2)
-              </span>
-        </div>
-        <div class="col-2 mt-4">
-            <b>price 150$</b>
-        </div>
+  <div>
+    <div class="row border-bottom border-top" v-for="course in courses" :key="course.id">
+      <div class="col-4">
+        <a href="#"><img :src="course.image" alt="" class="img-fluid"></a>
+      </div>
+      <div class="col-6 my-auto">
+        <h4>{{ course.name }} </h4>
+        <p>{{ course.description }}</p>
+        <span class="d-block mb-1">{{ course.user }}</span>
+        <!-- rating -->
+        ({{ course.avgrate }})
+        <i v-if="course.avgrate > 0" class="star fas fa-star"></i>
+        <i v-else class="star fa-regular fa-star"></i>
+        <span class="rating" v-for="n in 4">
+        
+          <i v-if="course.avgrate  > n" class="star fas fa-star"></i>
+          <i v-else class="star fa-regular fa-star"></i>
+        </span>
+        ({{ courses.total_reviews }})
+      </div>
+      <div class="col-2 mt-4">
+        <b>Price: {{ course.price }}$</b>
+      </div>
     </div>
- 
+  </div>
 </template>
 
-<style>
-</style>
-
 <script>
+import axios from 'axios';
+
 export default {
-    name:"list-courses",
-}
+  name: "ListCourses",
+  data() {
+    return {
+      courses: [] 
+    };
+  },
+  methods: {
+    listCourses() {
+      axios.get('http://127.0.0.1:8000/courses/')
+        .then(response => {
+          this.courses = response.data.results; // Assign the courses data from the response
+        })
+        .catch(error => {
+          console.error('Error fetching courses: ', error);
+        });
+    }
+  },
+  mounted() {
+    this.listCourses(); // Call the method to fetch courses when component is mounted
+  }
+};
 </script>
+
+<style>
+.star {
+  color: rgb(238, 238, 7);
+  border-color: black;
+}
+</style>

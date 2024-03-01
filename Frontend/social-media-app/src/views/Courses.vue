@@ -20,6 +20,7 @@
       CoursesFilter, 
       ListCourses
     },
+
   }
   </script>
   
