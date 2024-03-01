@@ -1,7 +1,7 @@
 import os
 import django
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'projet.settings')
+import random
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
 django.setup()
 from django.contrib.auth.models import User
 from courses.models import Courses, Categories,Review
@@ -18,22 +18,21 @@ def seed_courses(n: int):
             subtitle=fake.sentence(),
             description=fake.text(max_nb_chars=50),
             price=fake.random_int(min=100, max=500),
-            category=fake.random.choice(categories)
+            category=fake.random.choice(categories),
+            image = 'default-course-img.jpeg'
         )
 
-    print(f"Added products successfully")
+    print(f"Added {n} products successfully")
 
 def seed_reviews(n:int):
     all_courses=list(Courses.objects.all())
     for _ in range(n):
         Review.objects.create(
             user=User.objects.get(username='admin'),
+            course=fake.random.choice(all_courses),
             review=fake.text(max_nb_chars=30),
-            course=fake.random.choice(all_courses)
-            
-            
-
-
+            rate=random.randint(1, 5),
         )
 
-seed_courses(100)
+    print(f"Added {n} reviews successfully")
+seed_reviews(1)
