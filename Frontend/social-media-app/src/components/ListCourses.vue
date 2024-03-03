@@ -2,7 +2,7 @@
   <div>
     <div class="row border-bottom border-top" v-for="course in courses" :key="course.id">
       <div class="col-4">
-        <a href="#"><img :src="course.image" alt="" class="img-fluid"></a>
+        <a :href="'edit/'+course.id"><img :src="course.image" alt="" class="img-fluid"></a>
       </div>
       <div class="col-6 my-auto">
         <h4>{{ course.name }} </h4>
@@ -17,10 +17,11 @@
           <i v-if="course.avgrate  > n" class="star fas fa-star"></i>
           <i v-else class="star fa-regular fa-star"></i>
         </span>
-        ({{ courses.total_reviews }})
+        ({{ course.total_reviews }})
       </div>
       <div class="col-2 mt-4">
         <b>Price: {{ course.price }}$</b>
+
       </div>
     </div>
   </div>
@@ -40,7 +41,7 @@ export default {
     listCourses() {
       axios.get('http://127.0.0.1:8000/courses/')
         .then(response => {
-          this.courses = response.data.results; // Assign the courses data from the response
+          this.courses = response.data.results; 
         })
         .catch(error => {
           console.error('Error fetching courses: ', error);
@@ -48,7 +49,7 @@ export default {
     }
   },
   mounted() {
-    this.listCourses(); // Call the method to fetch courses when component is mounted
+    this.listCourses(); 
   }
 };
 </script>
