@@ -35,4 +35,4 @@ def seed_reviews(n:int):
         )
 
     print(f"Added {n} reviews successfully")
-seed_reviews(1)
+seed_courses(98)

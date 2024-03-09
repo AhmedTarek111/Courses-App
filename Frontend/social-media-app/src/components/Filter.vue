@@ -1,62 +1,73 @@
 <template>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <div class="d-flex">
-        <button class="btn btn-outline-dark p-3 px-4 me-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-          <i class="fa-solid fa-filter me-1"></i> Filter
+  
+  <button class="btn btn-primary py-3 px-4" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" style="background-color: #A435F0;">
+    Fillters
+  </button>
+  
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="d-flex mb-3">
+        <input type="text" placeholder="search" class="form-control" name="search" v-model="searchinput">
+        <button class="btn ms-2 " style="background-color: #A435F0; color:white;">search</button>
+      </div>
+      <div class="dropdown mt-3">
+        <button class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" style="background-color: #A435F0; color:white;">
+          Filters
         </button>
-        <button class="btn btn-outline-dark p-3 px-4 me-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="fa-solid fa-sort me-1"></i>
-          sort by 
-        </button>
-      
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
+          <li class="mt-3">
+              <label class="ms-2" for="name(a-z)">name(a-z)</label>
+              <input type="checkbox" name="name" id="name(a-z)" class="ms-5">
+          </li>
+          
+          <li class="mt-3">      
+              <label class="ms-2" for="name(z-a)">name(z-a)</label>
+              <input type="checkbox" name="-name" id="name(z-a)" class="ms-5">
+          </li>
+
+          <li class="mt-3">
+              <label class="ms-2" for="price">price</label>
+              <img src="../assets/img/arrow-up-solid.svg" width="15px" height="15px" class="ms-2 me-2"></img>
+              <input type="checkbox" name="price" id="name(a-z)" class="ms-5">
+          </li>
+
+          <li class="mt-3">
+              <label class="ms-2" for="-price">price</label>
+              <img src="../assets/img/arrow-down-solid.svg" width="15px" height="15px" class="ms-2 me-2" style="color: #A435F0;"></img>
+              <input type="checkbox" name="-price" id="-price" class="ms-5">
+          </li>
+
         </ul>
       </div>
-      
-    
-      
-      <div style="min-height: 120px;">
-        <div class="collapse collapse-horizontal" id="collapseWidthExample">
-          <div class="card card-body" style="width: 300px;">
-            <div class="accordion accordion-flush" id="accordionFlushExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                      Accordion Item #1
-                    </button>
-                  </h2>
-                  <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body"><div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                          Default checkbox
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                        <label class="form-check-label" for="flexCheckChecked">
-                          Checked checkbox
-                        </label>
-                      </div>
-                       </div>
-                  </div>
-                </div>
-            
-              </div>
-          </div>
-        </div>
-      </div>
-  </template>
-  
-  <script>
-  export default {
-    name: 'courses-filter',
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'CoursesFilter',
+  emits: ['nameorder', 'priceorder'],
+  data() {
+    return {
+      nameOrder: '',
+      priceOrder: '',
+    }
+  },
+  watch: {
+    nameOrder(newValue) {
+      this.$emit('nameorder', newValue);
+    },
+    priceOrder(newValue) {
+      this.$emit('priceorder', newValue);
+    }
   }
-  </script>
-  
-  <style>
-  </style>
-  
+}
+</script>
+
+<style>
+/* Add your CSS styles here */
+</style>
