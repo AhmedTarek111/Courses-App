@@ -6,6 +6,6 @@ class CoursesFilter(filters.FilterSet):
     class Meta:
         model =Courses
         fields={
-            'name':['contains'],
+            'name':['icontains'],
             'price':['range'],
         }

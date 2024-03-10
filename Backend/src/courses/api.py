@@ -5,6 +5,7 @@ from .models import Courses,Categories,Review
 from rest_framework import filters
 from .myfilter import CoursesFilter
 from .mypagination import CustomPagination
+from django.db.models import Q
 
 class ListCreateCoursesApi(ListCreateAPIView):
     model = Courses
@@ -15,6 +16,17 @@ class ListCreateCoursesApi(ListCreateAPIView):
     ordering_fields = ['name', 'price']
     filterset_class = CoursesFilter
     pagination_class= CustomPagination
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_query = self.request.query_params.get('query', None)
+        if search_query is not None:
+            queryset = queryset.filter(
+                Q(name__icontains=search_query) |
+                Q(subtitle__icontains=search_query) |
+                Q(description__icontains=search_query)
+            )
+        return queryset
     
 class RetrieveUpdateDestroyCourse(RetrieveUpdateDestroyAPIView):
     model = Courses
