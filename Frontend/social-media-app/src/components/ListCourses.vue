@@ -1,5 +1,5 @@
 <template>
-  
+
   <div>
     <div class="row border-bottom border-top border-3 my-2" v-for="course in courses" :key="course.id">
       <!-- Course Details -->
@@ -35,14 +35,14 @@ import axios from 'axios';
 
 export default {
   name: "ListCourses",
-  props: ['filters'],
+  props: ['filters','sort'],
   data() {
     return {
       courses: [],
     };
   },
   methods: {
-    // Ensure that listCourses is not invoked immediately
+
     listCourses() {
       axios.get('http://127.0.0.1:8000/courses/')
         .then(response => {
@@ -53,6 +53,13 @@ export default {
   },
   watch: {
     filters: {
+      handler(newValue) {
+        
+        this.courses = newValue.results || [];
+      },
+      immediate: false, 
+    },
+    sort: {
       handler(newValue) {
         
         this.courses = newValue.results || [];

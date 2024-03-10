@@ -6,7 +6,7 @@
   
   <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+      <h5 class="offcanvas-title" id="offcanvasExampleLabel">filters</h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
@@ -16,39 +16,42 @@
         <button class="btn ms-2 " style="background-color: #A435F0; color:white;" @click="searchMethod(searchinput)">search</button>
       </div>
     <!-- fillters  -->
-      <div class="dropdown mt-3">
-        <button class="btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" style="background-color: #A435F0; color:white;">
-          Filters
-        </button>
-        <!-- name filtter a -> z -->
-        <ul class="dropdown-menu">
+    
+    <div class="dropdown mt-3">
+      <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" style="background-color: #A435F0; color:white;">
+          sort
+      </button>
+      <!-- name filter a -> z -->
+      <ul class="dropdown-menu">
+        <div class="btn-group-vertical ms-2" role="group" aria-label="Vertical radio toggle button group">
           <li class="mt-3">
-              <label class="ms-2" for="name(a-z)">name(a-z)</label>
-              <input type="checkbox" name="name" id="name(a-z)" class="ms-5">
-          </li>
-          
-          <li class="mt-3">      
-              <label class="ms-2" for="name(z-a)">name(z-a)</label>
-              <input type="checkbox" name="-name" id="name(z-a)" class="ms-5">
-          </li>
-          <!-- end name  -->
-
-        <!-- price filtter high -> low  -->
-
-          <li class="mt-3">
-              <label class="ms-2" for="price">price</label>
-              <img src="../assets/img/arrow-up-solid.svg" width="15px" height="15px" class="ms-2 me-2"></img>
-              <input type="checkbox" name="price" id="name(a-z)" class="ms-5">
-          </li>
-
-          <li class="mt-3">
-              <label class="ms-2" for="-price">price</label>
-              <img src="../assets/img/arrow-down-solid.svg" width="15px" height="15px" class="ms-2 me-2" style="color: #A435F0;"></img>
-              <input type="checkbox" name="-price" id="-price" class="ms-5">
-          </li>
-          <!-- end price fillters -->
-        </ul>
-      </div>
+             
+              <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" @click="sort('name')" >
+              <label class="btn btn-outline-info" for="vbtn-radio1">name(a-z)</label>
+            </li>
+            <li>  
+              <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off" @click="sort('-name')">
+              <label class="btn btn-outline-info" for="vbtn-radio2">name(z-a)</label>
+            </li> 
+            <li>
+              <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off" @click="sort('price')" >
+              <label class="btn btn-outline-info" for="vbtn-radio3">price <img src="../assets/img/arrow-up-solid.svg" width="15px" height="15px" class="ms-2 me-2"></label>
+            </li>  
+            <li>
+              <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio4" autocomplete="off" @click="sort('-price')">
+              <label class="btn btn-outline-info" for="vbtn-radio4">price <img src="../assets/img/arrow-down-solid.svg" width="15px" height="15px" class="ms-2 me-2"></label>
+            </li>
+            </div>
+  
+        
+          <!-- end name -->
+  
+          <!-- price filter high -> low -->
+  
+      
+      </ul>
+  </div>
+  
     </div>
   </div>
 </template>
@@ -62,6 +65,7 @@ export default {
   data() {
     return {
       searchinput: '',
+      sortfilter:''
     };
   },
   methods: {
@@ -71,12 +75,20 @@ export default {
           .then(response => {
             this.$emit('updateCourses', response.data);
           })
-          .catch(error => {
-            console.error('Error fetching search result:', error);
-          });
       }
     },
+    sort(sort){
+      axios({
+        url:`http://127.0.0.1:8000/courses/?ordering=${sort}`,
+        method:'get',
+      }).then(response => {this.sortfilter = response.data;})
+    }
   },
+  watch:{
+    sortfilter(newvalue){
+      this.$emit('applysort',this.sortfilter)
+    }
+  }
 };
 </script>
 
