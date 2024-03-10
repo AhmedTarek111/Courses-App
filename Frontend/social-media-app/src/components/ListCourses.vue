@@ -1,4 +1,5 @@
 <template>
+  
   <div>
     <div class="row border-bottom border-top border-3 my-2" v-for="course in courses" :key="course.id">
       <!-- Course Details -->
@@ -26,6 +27,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -33,31 +35,37 @@ import axios from 'axios';
 
 export default {
   name: "ListCourses",
-  props: ['search', 'filters'], // Define props
+  props: ['filters'],
   data() {
     return {
       courses: [],
     };
   },
   methods: {
+    // Ensure that listCourses is not invoked immediately
     listCourses() {
-     
-         axios.get('http://127.0.0.1:8000/courses/')
-          .then(response => {
-            this.courses = response.data.results; 
-          });
-      }   
+      axios.get('http://127.0.0.1:8000/courses/')
+        .then(response => {
+          this.courses = response.data.results;
+        })
+        
+    },
   },
   watch: {
-    search(newValue) {
-      this.listCourses();
-    }
+    filters: {
+      handler(newValue) {
+        
+        this.courses = newValue.results || [];
+      },
+      immediate: false, 
+    },
   },
-  mounted() {
-    this.listCourses(); 
+  mounted(){
+   this.listCourses()
   }
 };
 </script>
+
 
 <style>
 .star {
