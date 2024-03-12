@@ -1,5 +1,5 @@
 from .serializers import CourseListSerializer,CourseDetailSerializer,ReviewSerializer,CategoriesSerializer
-from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIView,GenericAPIView
+from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIView,GenericAPIView,CreateAPIView
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Courses,Categories,Review
 from rest_framework import filters
@@ -49,3 +49,20 @@ class CategoryFilterApi(GenericAPIView):
         filterdcourses = Courses.objects.filter(category = category)
         serializer = self.get_serializer(filterdcourses, many=True)
         return Response(serializer.data)
+    
+class CreateReviewApi(GenericAPIView):
+    serializer_class = ReviewSerializer
+    queryset = Review.objects.all()
+    
+    def post(self,request,*args, **kwargs):
+        course = Courses.objects.get(id=self.kwargs['pk'])
+        review = Review.objects.create(
+            user = request.user,
+            course = course,
+            rate = request.data.get('rate'),
+            review =request.data.get('review')
+        )
+        
+        serializer = self.get_serializer(review)
+        return Response(serializer.data)
+    
