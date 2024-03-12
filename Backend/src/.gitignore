@@ -68,6 +68,9 @@ wheels/
 *.egg 
 *.manifest 
 *.spec 
+Scripts/
+pyvenv.cfg/
+
 
 # Installer logs 
 pip-log.txt 

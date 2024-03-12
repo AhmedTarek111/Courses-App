@@ -1,11 +1,12 @@
 from .serializers import CourseListSerializer,CourseDetailSerializer,ReviewSerializer,CategoriesSerializer
-from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIView,GenericAPIView
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Courses,Categories,Review
 from rest_framework import filters
 from .myfilter import CoursesFilter
 from .mypagination import CustomPagination
 from django.db.models import Q
+from rest_framework.response import Response
 
 class ListCreateCoursesApi(ListCreateAPIView):
     model = Courses
@@ -37,3 +38,13 @@ class ListCreateCategoriesApi(ListCreateAPIView):
     model = Categories
     queryset=Categories.objects.all()
     serializer_class = CategoriesSerializer
+    
+class CategoryFilterApi(GenericAPIView):
+    serializer_class = CourseListSerializer
+    queryset = Courses.objects.all()
+    
+    def get(self,request,*args, **kwargs):
+        category = Categories.objects.get(id=self.kwargs['pk'])
+        filterdcourses = Courses.objects.filter(category = category)
+        serializer = self.get_serializer(filterdcourses, many=True)
+        return Response(serializer.data)
