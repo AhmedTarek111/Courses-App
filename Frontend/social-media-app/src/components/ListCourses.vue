@@ -35,7 +35,7 @@ import axios from 'axios';
 
 export default {
   name: "ListCourses",
-  props: ['filters','sort','categoryfilter'],
+  props: ['filters','sort','category'],
   data() {
     return {
       courses: [],
@@ -59,6 +59,7 @@ export default {
       },
       immediate: false, 
     },
+
     sort: {
       handler(newValue) {
         
@@ -66,6 +67,15 @@ export default {
       },
       immediate: false, 
     },
+
+    category: {
+      handler(newValue) {
+        
+        this.courses = newValue || [];
+      },
+      immediate: false, 
+    },
+
   },
   mounted(){
    this.listCourses()

@@ -37,11 +37,11 @@
                   <label class="btn btn-outline-secondary" for="vbtn-radio2">name(z-a)</label>
                 </li> 
                 <li>
-                  <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off" @click="sort('price')" >
+                  <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off" @click="sort('-price')" >
                   <label class="btn btn-outline-secondary" for="vbtn-radio3">price <img src="../assets/img/arrow-up-solid.svg" width="15px" height="15px" class="ms-2 me-2"></label>
                 </li>  
                 <li>
-                  <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio4" autocomplete="off" @click="sort('-price')">
+                  <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio4" autocomplete="off" @click="sort('price')">
                   <label class="btn btn-outline-secondary" for="vbtn-radio4">price <img src="../assets/img/arrow-down-solid.svg" width="15px" height="15px" class="ms-2 me-2"></label>
                 </li>
                 </div>
@@ -62,11 +62,11 @@
         </button>
         <!-- name filter a -> z -->
         <ul class="dropdown-menu">
-          <div class="btn-group-vertical ms-2" role="group" aria-label="Vertical radio toggle button group">
+          <div class="btn-group-vertical " role="group" aria-label="Vertical radio toggle button group">
             <li class="mt-3" v-for="category in categories">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" :value="category.name" id="flexCheckDefault" v-model="categoryfilter" :key="category.id">
-                <label class="form-check-label" for="flexCheckDefault">
+                <input type="radio" class="btn-check" name="vbtn-radio" :id="category.name+category.id" autocomplete="off" :value="category.name"   :key="category.id" @click="filtercategories(category.id)" >
+                <label class="btn btn-outline-warning" :for="category.name+category.id" >
                   {{ category.name }}
                 </label>
               </div>
@@ -74,18 +74,17 @@
               </li>
               
               </div>
-    
-          
+
             <!-- end name -->
-    
             <!-- price filter high -> low -->
-    
-        
         </ul>
     </div>
 
-      </div>
-  
+    <div class="d-inline">
+      <a href="/"><button type="button" class="btn btn-danger ms-3 mt-3">restore</button></a>
+    </div>
+    
+    </div>
     </div>
   </div>
 </div>
@@ -104,6 +103,7 @@ export default {
       searchinput: '',
       sortfilter:'',
       categories:'',
+      categoryfilter:''
     };
   },
   methods: {
@@ -128,6 +128,13 @@ export default {
         url:'http://127.0.0.1:8000/courses/categories/',
         method:'get',
       }).then(response => this.categories = response.data.results)
+    },
+
+    filtercategories(id){
+      axios({
+        url:`http://127.0.0.1:8000/courses/categories/${id}/`,
+        method:'get',
+      }).then(response => this.categoryfilter = response.data)
     }
   
   },
@@ -137,7 +144,7 @@ export default {
       this.$emit('applysort',this.sortfilter)
     },
     categoryfilter(newValue){
-      this.$emit('categoryfilter',this.categoryfilter)
+      this.$emit('applycategoryfilter',this.categoryfilter)
     }
   }
 };

@@ -3,10 +3,10 @@
   <div class="container mt-5">
     <div class="row">
       <div class="col-4">
-        <CoursesFilter @updateCourses="updateCourses" @applysort="applysort" @categoryfilter="applycategoryfilter"/>
+        <CoursesFilter @updateCourses="updateCourses" @applysort="applysort" @applycategoryfilter="applycategoryfilterr"/>
       </div>
       <div class="col-8">
-        <ListCourses :filters="filteredCourses" :sort="sortfillter" :categoryfilter="categoryfilter"/>
+        <ListCourses :filters="filteredCourses" :sort="sortfillter" :category="categoryfilter"/>
       </div>
     </div>
   </div>
@@ -40,10 +40,9 @@ export default {
       this.sortfillter =sort
     },
 
-    applycategoryfilter(categories){
-      axios({
-        url
-      })
+    applycategoryfilterr(categories){
+     this.categoryfilter = categories;
+     console.log(`you are in the courses and the data is ${categories}`)
     }
   },
 };

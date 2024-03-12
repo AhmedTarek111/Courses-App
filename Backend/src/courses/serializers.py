@@ -30,7 +30,7 @@ class CourseListSerializer(serializers.ModelSerializer):
 class CategoriesSerializer(serializers.ModelSerializer):
     class Meta():
         model =Categories
-        fields =['name']
+        fields ='__all__'
 
 class ReviewSerializer(serializers.ModelSerializer):
     user= serializers.StringRelatedField()

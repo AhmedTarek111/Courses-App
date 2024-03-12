@@ -42,7 +42,8 @@ class ListCreateCategoriesApi(ListCreateAPIView):
 class CategoryFilterApi(GenericAPIView):
     serializer_class = CourseListSerializer
     queryset = Courses.objects.all()
-    
+    pagination_class= CustomPagination
+
     def get(self,request,*args, **kwargs):
         category = Categories.objects.get(id=self.kwargs['pk'])
         filterdcourses = Courses.objects.filter(category = category)
