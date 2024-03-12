@@ -35,7 +35,7 @@ import axios from 'axios';
 
 export default {
   name: "ListCourses",
-  props: ['filters','sort'],
+  props: ['filters','sort','categoryfilter'],
   data() {
     return {
       courses: [],

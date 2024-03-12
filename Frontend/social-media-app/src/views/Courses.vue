@@ -3,10 +3,10 @@
   <div class="container mt-5">
     <div class="row">
       <div class="col-4">
-        <CoursesFilter @updateCourses="updateCourses" @applysort="applysort"/>
+        <CoursesFilter @updateCourses="updateCourses" @applysort="applysort" @categoryfilter="applycategoryfilter"/>
       </div>
       <div class="col-8">
-        <ListCourses :filters="filteredCourses" :sort="sortfillter"/>
+        <ListCourses :filters="filteredCourses" :sort="sortfillter" :categoryfilter="categoryfilter"/>
       </div>
     </div>
   </div>
@@ -16,7 +16,7 @@
 import CoursesFilter from '../components/Filter.vue';
 import ListCourses from '@/components/ListCourses.vue';
 import Navbar from '../components/navbar.vue';
-
+import axios from 'axios';
 export default {
   name: 'courses',
   components: {
@@ -27,7 +27,8 @@ export default {
   data() {
     return {
       filteredCourses: [],
-      sortfillter:[]
+      sortfillter:[],
+      categoryfilter:[]
     };
   },
   methods: {
@@ -38,6 +39,12 @@ export default {
     applysort(sort){
       this.sortfillter =sort
     },
+
+    applycategoryfilter(categories){
+      axios({
+        url
+      })
+    }
   },
 };
 </script>
