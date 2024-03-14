@@ -42,7 +42,6 @@ export default {
 
     applycategoryfilterr(categories){
      this.categoryfilter = categories;
-     console.log(`you are in the courses and the data is ${categories}`)
     }
   },
 };
