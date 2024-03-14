@@ -17,11 +17,25 @@
           </p>
           <div class="collapse" id="collapseExample">
             <div class="card card-body">
-              <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">Default</span>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                <button class="btn btn-success ms-1">Add</button>
-              </div>
+              <form>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Review</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="reveiw" v-model="review">
+                  <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div>
+                  <div class="mb-3 form-check">
+                    <select class="form-select" aria-label="Default select example" v-model="selectedRate">
+                      <option :value="x" v-for="x in 5" :key="x">{{ x }}</option>
+                    </select>
+                  </div>
+                </div>
+           
+                <button type="submit" class="btn btn-primary" @click="addreview(review ,selectedRate)">Submit</button>
+                <div v-if="message" class="alert alert-success" role="alert" mt-3>
+                  {{ message }}
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -36,12 +50,36 @@
         <h2 class="my-5">
           <span class="reviews rounded p-3">Reviews <span class="badge bg-light text-secondary">{{ details.reviews.length }}</span></span>
         </h2>
+        <div v-if="reviewdeletemessage" class="alert alert-success mt-2" role="alert" mt-3>
+          {{ reviewdeletemessage }}
+        </div>
         <ul class="list-group">
           <li class="my-2 list-group-item" v-for="review in details.reviews" :key="review.id">
             <div class="d-flex justify-content-between align-items-start">
               <div>{{ review.review }}</div>
-              <div class="text-end">{{ review.user }}</div>
-              <div class="text-end">{{ user }}</div>
+              <div class="d-flex">
+                <div class="mt-2">{{ review.user }} </div>
+                <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="../assets/img/trash-solid.svg" alt="" width="15px" class="ms-2"></button>
+                </div>  
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <span class="d-block">Are you sure you want to delete the reveiw ?</span>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" @click="deletereview(review.id)" data-bs-dismiss="modal" >yes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
             </div>
           </li>
         </ul>
@@ -64,7 +102,9 @@ export default {
     data() {
         return {
             details: null ,
-            user:''
+            user:'',
+            message: '',
+            reviewdeletemessage:'',
         }
     },
     created() {
@@ -81,8 +121,43 @@ export default {
               this.user = response.data.user
 
             })
+        },
+        addreview(review,selectedRate){
+          axios({
+            url:`http://127.0.0.1:8000/courses/create&delete/review/${this.details.id}/`,
+            method:'post',
+            data:{
+              review:review,
+              rate:selectedRate,
+              user_id: this.user.id
+            }
+          }).then(
+          response => {
+          this.message = 'Review added successfully!';
+          this.coursedetail(); 
+          this.review = ''
+          this.rate=1
+          setTimeout(() => {
+            this.message = '';
+          }, 3000); 
+        })
+        },
+        deletereview(reviewid){
+          axios({
+            url:`http://127.0.0.1:8000/courses/create&delete/review/${reviewid}/`,
+            method:'delete'
+          }).then(response => {
+            this.coursedetail()
+            this.reviewdeletemessage = 'Review Deleted successfully!';
+            setTimeout(() => {
+            this.reviewdeletemessage = '';
+          }, 3000); 
+          
+
+          })
         }
     },
+
  mounted(){
     this.coursedetail
  }

@@ -7,6 +7,10 @@ from .myfilter import CoursesFilter
 from .mypagination import CustomPagination
 from django.db.models import Q
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
+from rest_framework import status
+
 
 class ListCreateCoursesApi(ListCreateAPIView):
     model = Courses
@@ -55,9 +59,10 @@ class CreateReviewApi(GenericAPIView):
     queryset = Review.objects.all()
     
     def post(self,request,*args, **kwargs):
-        course = Courses.objects.get(id=self.kwargs['pk'])
+        course = get_object_or_404(Courses, pk=self.kwargs['pk'])
+    
         review = Review.objects.create(
-            user = request.user,
+            user = request.user.id,
             course = course,
             rate = request.data.get('rate'),
             review =request.data.get('review')
@@ -66,3 +71,7 @@ class CreateReviewApi(GenericAPIView):
         serializer = self.get_serializer(review)
         return Response(serializer.data)
     
+    def delete(self,request,*args, **kwargs):
+        reveiw=Review.objects.get(id=self.kwargs['pk'])
+        reveiw.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT) 

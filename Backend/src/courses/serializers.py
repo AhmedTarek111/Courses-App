@@ -36,13 +36,13 @@ class ReviewSerializer(serializers.ModelSerializer):
     user= serializers.StringRelatedField()
     class Meta():
         model =Review
-        fields =['course','review','created_at','user']
+        fields ='__all__'
 
 class CourseDetailSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()
     category = serializers.StringRelatedField()
-    reviews = ReviewSerializer(source='review_course',many=True)    
-    
+    reviews = ReviewSerializer(source='review_course',many=True)
+        
     class Meta():
         model =Courses
         fields = '__all__'
