@@ -1,5 +1,9 @@
 <template>
-    <div class="row" v-if="details">
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+       <div class="row" v-if="details">
       <div class="col-lg-6">
         <img :src="details.image" alt="" class="img-fluid">
       </div>
@@ -55,8 +59,21 @@
         </div>
         <ul class="list-group">
           <li class="my-2 list-group-item" v-for="review in details.reviews" :key="review.id">
-            <div class="d-flex justify-content-between align-items-start">
+            <div class="d-flex justify-content-between">
+              <!-- reveiw  -->
               <div>{{ review.review }}</div>
+
+              <!-- rating -->
+              <div>
+                <i v-if="review.rate > 0" class="star fas fa-star"></i>
+                <i v-else class="star fa-regular fa-star"></i>
+                <span class="rating" v-for="n in 4">
+                  <i v-if="review.rate > n" class="star fas fa-star"></i>
+                  <i v-else class="star fa-regular fa-star"></i>
+                </span>
+              </div>  
+              
+              <!-- user and delete -->
               <div class="d-flex">
                 <div class="mt-2">{{ review.user }} </div>
                 <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="../assets/img/trash-solid.svg" alt="" width="15px" class="ms-2"></button>
@@ -84,7 +101,8 @@
           </li>
         </ul>
       </div>
-     
+    </body>
+  
   </template>
   
 
