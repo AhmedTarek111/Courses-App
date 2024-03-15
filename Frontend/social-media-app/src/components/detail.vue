@@ -1,6 +1,6 @@
 <template>
   <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <body>
        <div class="row" v-if="details">
@@ -61,7 +61,7 @@
           <li class="my-2 list-group-item" v-for="review in details.reviews" :key="review.id">
             <div class="d-flex justify-content-between">
               <!-- reveiw  -->
-              <div>{{ review.review }}</div>
+              <div>{{ review.review }} + {{  review.id }}</div>
 
               <!-- rating -->
               <div>
@@ -73,30 +73,30 @@
                 </span>
               </div>  
               
-              <!-- user and delete -->
               <div class="d-flex">
                 <div class="mt-2">{{ review.user }} </div>
-                <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal"> <img src="../assets/img/trash-solid.svg" alt="" width="15px" class="ms-2"></button>
-                </div>  
+                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="reivewId = review.id">
+                  <img src="../assets/img/trash-solid.svg" alt="" width="15px" class="ms-2">
+                </button>
+              </div>  
 
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <span class="d-block">Are you sure you want to delete the reveiw ?</span>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger" @click="deletereview(review.id)" data-bs-dismiss="modal" >yes</button>
-                      </div>
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <span class="d-block">Are you sure you want to delete the review?</span>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-danger" @click="deletereview(reivewId)" data-bs-dismiss="modal">Yes</button>
                     </div>
                   </div>
                 </div>
-                
+              </div>
             </div>
           </li>
         </ul>
@@ -119,10 +119,11 @@ export default {
     name: 'detail-components',
     data() {
         return {
-            details: null ,
+            details: null,
             user:'',
             message: '',
             reviewdeletemessage:'',
+            reivewId:null
         }
     },
     created() {
@@ -167,6 +168,7 @@ export default {
           }).then(response => {
             this.coursedetail()
             this.reviewdeletemessage = 'Review Deleted successfully!';
+            this.reivewId =null
             setTimeout(() => {
             this.reviewdeletemessage = '';
           }, 3000); 
