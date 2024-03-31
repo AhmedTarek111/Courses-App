@@ -5,6 +5,11 @@
   <button class="btn btn-primary py-3 px-4" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" style="background-color: #A435F0;">
     Fillters
   </button> 
+
+  <router-link class="btn btn-info ms-2  py-3" to="add/course">
+    Add course
+  </router-link>
+  
   <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="offcanvasExampleLabel">filters</h5>

@@ -35,7 +35,7 @@
                   </div>
                 </div>
            
-                <button type="submit" class="btn btn-primary" @click="addreview(review ,selectedRate)">Submit</button>
+                <button type="submit" class="btn btn-success" @click="addreview(review ,selectedRate)">Submit</button>
                 <div v-if="message" class="alert alert-success" role="alert" mt-3>
                   {{ message }}
                 </div>
@@ -61,7 +61,7 @@
           <li class="my-2 list-group-item" v-for="review in details.reviews" :key="review.id">
             <div class="d-flex justify-content-between">
               <!-- reveiw  -->
-              <div>{{ review.review }} + {{  review.id }}</div>
+              <div>{{ review.review }}</div>
 
               <!-- rating -->
               <div>
